@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Test App
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="list-avatar-page">
+	<ion-searchbar [(ngModel)]="terms"></ion-searchbar>
+  	<ion-list>
+  		<ion-item tappable *ngFor="let item of items | search : terms" (click)="onItemSelected(item)">
+  			<ion-avatar item-start>
+        		<img src="{{item.picture.large}}">
+      		</ion-avatar>
+      		<h2 id="name_content">{{item.name.last}}, {{item.name.first}}</h2>
+      		<p id="email_content">{{item.email}}</p>
+      		<ion-note item-end style="font-size: 10px;">{{item.registered.date | moment }}</ion-note>
+  		</ion-item>
+  	</ion-list>
+  	<ion-infinite-scroll *ngIf="!hideInfinite" (ionInfinite)="loadMoreData($event)">
+      	<ion-infinite-scroll-content loadingSpinner="bubbles">
+     </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
